@@ -16,10 +16,6 @@ public class Record {
 	}
 
 	public int getTimeHour(){
-		if(time.charAt(0)=='0'){
-
-			return Integer.parseInt(this.time.substring(0,2));
-		}
 		return Integer.parseInt(this.time.substring(0,2));
 	}
 

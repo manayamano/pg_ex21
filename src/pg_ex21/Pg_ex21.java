@@ -21,10 +21,10 @@ public class Pg_ex21 {
 		BufferedReader br;
 
 		try {
-			fr = new FileReader(file_path + "\\" + RECORD_FILE);
+			fr = new FileReader(file_path + "/" + RECORD_FILE);
 			br = new BufferedReader(fr);
 
-			FileWriter filewriter = new FileWriter(file_path + "\\" + INVOICE_FILE);
+			FileWriter filewriter = new FileWriter(file_path + "/" + INVOICE_FILE);
 
 			String line;
 			br.readLine();

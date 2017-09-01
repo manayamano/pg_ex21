@@ -30,18 +30,6 @@ public class User {
 		}
 	}
 
-	public String getNumber() {
-		return this.number;
-	}
-
-	public Service getService(){
-		return this.service;
-	}
-/*
-	public Record getRecord(int i) {
-		return this.records[i];
-	}
-*/
 	//基本料金計算
 	public int getBasicfee(){
 		int basicfee = BASIC_BASICFEE;
