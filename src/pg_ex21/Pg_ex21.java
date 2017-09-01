@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Pg_ex21 {
 
@@ -16,10 +15,7 @@ public class Pg_ex21 {
 
 		String file_path = "C:/eclipse/pleiades/workspace/pg_ex21_data";
 
-		// record.log
-		int count=0;
-		//User[] user = new User[10000];
-		ArrayList<User> user = new ArrayList<User>();
+		User user = new User();
 
 		FileReader fr;
 		BufferedReader br;
@@ -35,19 +31,15 @@ public class Pg_ex21 {
 			while((line = br.readLine()) != null){
 				switch(line.charAt(0)){
 				case '1':
-					//user[count] = new User(line.substring(2,15));
-					user.add(new User(line.substring(2,15)));
+					user = new User(line.substring(2,15));
 					break;
 				//case '9':
 				case '0':
 					//出力
-					//filewriter.write(user[count].getOutput());
-					filewriter.write(user.get(count).getOutput());
-					count++;
+					filewriter.write(user.getOutput());
 					break;
 				default:
-					//user[count].set(line);
-					user.get(count).set(line);
+					user.set(line);
 				}
 			}
 			filewriter.close();

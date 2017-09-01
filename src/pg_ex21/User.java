@@ -10,6 +10,8 @@ public class User {
 	Record[] records;
 	int recordCount;
 
+	public User(){}
+
 	public User(String number) {
 		this.number = number;
 		this.service = new Service();
