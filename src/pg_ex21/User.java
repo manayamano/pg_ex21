@@ -7,16 +7,16 @@ public class User {
 
 	String number;
 	Service service;
-	Record[] records;
-	int recordCount;
+	Record records;
+
+	//通話料金
+	int callfee=0;
 
 	public User(){}
 
 	public User(String number) {
 		this.number = number;
 		this.service = new Service();
-		this.records = new Record[10000];
-		this.recordCount=0;
 	}
 
 	public void set(String line){
@@ -24,7 +24,9 @@ public class User {
 			this.service.set(line);
 		}
 		if(line.charAt(0)=='5'){
-			this.records[recordCount++] = new Record(line);
+			this.records = new Record(line);
+			callfee += getCallfee(records);
+
 		}
 	}
 
@@ -35,11 +37,11 @@ public class User {
 	public Service getService(){
 		return this.service;
 	}
-
+/*
 	public Record getRecord(int i) {
 		return this.records[i];
 	}
-
+*/
 	//基本料金計算
 	public int getBasicfee(){
 		int basicfee = BASIC_BASICFEE;
@@ -53,23 +55,17 @@ public class User {
 	}
 
 	//通話料金計算
-	public int getCallfee() {
-		int callfee = 0;
+	public int getCallfee(Record records) {
 		int timeHour;
-		if(recordCount>0){
-			for(int i=0;  i<recordCount; i++ ){
-				int callrate = BASIC_CALLRATE;
-				timeHour = records[i].getTimeHour();
-				if(timeHour>=8 && timeHour<18 && service.getE1()==1){
-					callrate -= 5;
-				}
-				if(service.c1Check(records[i].getNumber())){
-					callrate /= 2;
-				}
-				callfee += callrate * records[i].getInterval();
-			}
+		int callrate = BASIC_CALLRATE;
+		timeHour = records.getTimeHour();
+		if(timeHour>=8 && timeHour<18 && service.getE1()==1){
+			callrate -= 5;
 		}
-		return callfee;
+		if(service.c1Check(records.getNumber())){
+			callrate /= 2;
+		}
+		return callrate * records.getInterval();
 	}
 
 	//出力
@@ -77,7 +73,7 @@ public class User {
 		String output;
 		output = "1 "+ this.number + "\n";
 		output += "5 "+ this.getBasicfee() + "\n";
-		output += "7 "+ this.getCallfee() + "\n";
+		output += "7 "+ this.callfee + "\n";
 		output += "9 "+ "====================" + "\n";
 		return output;
 	}
